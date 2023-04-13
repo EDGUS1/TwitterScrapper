@@ -1,7 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
+templates = Jinja2Templates(directory="src\\templates")
+
 @app.get('/')
-def read_root():
-    return {'msg': 'OK'}
+def form_get(request: Request):
+    return templates.TemplateResponse("home.html",{"request":request, 'result': 'Resultado...'})
+
+@app.post('/')
+def search(request: Request, mensaje: str = Form(...), tipo: str = Form()):
+    return templates.TemplateResponse("home.html",{"request":request, 'result': mensaje + tipo})

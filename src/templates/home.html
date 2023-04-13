@@ -19,7 +19,7 @@
       <div class="row">
         <h2 style="text-align: center">Twitter Scrapper by options</h2>
       </div>
-      <form action="">
+      <form method="post">
         <div class="row">
           <div class="six columns">
             <label for="msg_id">Palabra de busqueda</label>
@@ -28,13 +28,15 @@
               type="text"
               placeholder="ex. '@user', 'user'"
               id="msg_id"
+              name="mensaje"
+              autocomplete="off"
             />
           </div>
           <div class="six columns">
             <label for="exampleRecipientInput">Método de búsqueda</label>
-            <select class="u-full-width" id="exampleRecipientInput">
-              <option value="Option 1">usuario</option>
-              <option value="Option 2">mensaje</option>
+            <select class="u-full-width" id="exampleRecipientInput" name="tipo">
+              <option value="1">usuario</option>
+              <option value="2">mensaje</option>
             </select>
           </div>
           <input class="button-primary" type="submit" value="búsqueda" />
@@ -43,9 +45,8 @@
       <textarea
         class="u-full-width"
         style="resize: none; height: 300px !important"
-        placeholder="Resultado..."
+        placeholder="{{result}}"
         id="exampleMessage"
-        name="oinaoivnas"
         readonly
       ></textarea>
     </div>
