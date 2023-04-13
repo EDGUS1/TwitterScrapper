@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
+from scrapper import consultar
 
 app = FastAPI()
 
@@ -11,4 +12,4 @@ def form_get(request: Request):
 
 @app.post('/')
 def search(request: Request, mensaje: str = Form(...), tipo: str = Form()):
-    return templates.TemplateResponse("home.html",{"request":request, 'result': mensaje + tipo})
+    return templates.TemplateResponse("home.html",{"request":request, 'result': consultar(mensaje)})
