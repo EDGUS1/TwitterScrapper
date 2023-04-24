@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
-from scrapper import tendencias
+from scrapper import search_user, explore, search_tweet
 from os.path import dirname, join
 
 app = FastAPI()
@@ -20,5 +20,20 @@ def form_get(request: Request):
 @app.post("/")
 def search(request: Request, message: str = Form(...), type: str = Form()):
     return templates.TemplateResponse(
-        "home.html", {"request": request, "result": tendencias()}
+        "home.html", {"request": request, "result": search_user(message)}
     )
+
+
+@app.get("/api/explore")
+def explore_tweets():
+    return {"response": explore()}
+
+
+@app.get("/api/user/{user_name}")
+def find_user(user_name: str):
+    return {"response": search_user(user_name)}
+
+
+@app.get("/api/tweet/{user_name}/{status}")
+def find_tweet(user_name: str, status: str):
+    return {"response": search_tweet(user_name, status)}
